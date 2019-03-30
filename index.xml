@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Aqil&#39;s Dev Blog</title>
+    <link>/</link>
+    <description>Recent content on Aqil&#39;s Dev Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright>
+    <lastBuildDate>Tue, 12 Mar 2019 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>About Me</title>
+      <link>/about/</link>
+      <pubDate>Tue, 12 Mar 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/about/</guid>
+      <description>I am Aqil An engineering graduate from the University of Alberta, currently living in Toronto 🇨🇦. I am a software engineer, and a data science consultant, focussed on bringing great software experiences to the masses.
+I like to tinker, and am especially interested in complex problems (the kind that involve multiple disciplines, and faculties outside of traditional engineering/computer science). I&amp;rsquo;m also an M.S. CS - Machine Learning candidate, at the Georgia Institiute of Technology.</description>
+    </item>
+    
+    <item>
+      <title>Dendrons are Trees (or are they?)</title>
+      <link>/posts/dendrons-and-trees/</link>
+      <pubDate>Tue, 02 Oct 2018 22:04:54 -0400</pubDate>
+      
+      <guid>/posts/dendrons-and-trees/</guid>
+      <description>Turning Dendrograms Into Useful Tree Objects Dendron Trees (Dendrograms). They&amp;rsquo;re a great way to visualize the application of hierarchical cluster analysis. I tried to convert a dendron graph to a standard python tree structure, but discovered the method is rather cumbersome. Without the dendron chart parsed into a tree structure it is difficult to use the original dendron or linkage structures to do anything useful with the produced linkage (for example, reccomending neighbouring leaves, or determining the weight of a branch of the dendron tree).</description>
+    </item>
+    
+    <item>
+      <title>Complex vs Complicated</title>
+      <link>/posts/complicated-complex/</link>
+      <pubDate>Wed, 14 Mar 2018 11:04:54 -0400</pubDate>
+      
+      <guid>/posts/complicated-complex/</guid>
+      <description>Complex vs Complicated What determines the difference between a complicated and a complex problem? Is there a difference between the two? Here&amp;rsquo;s my definitions (as they relate to startups):
+ Complicated - technologically difficult, but with a clear path to achieving the goal. The technology may make it infeasible at a current point in time, but with iteration on the technology, the goal can be achieved. The litmus test I would use for this is, if I could change out the central piece of technology that this problem is reliant on, and make it behave any way that I imagine, would the problem be mostly eradicated?</description>
+    </item>
+    
+    <item>
+      <title>About me, about this</title>
+      <link>/posts/test-post/</link>
+      <pubDate>Fri, 05 Jan 2018 13:25:54 -0400</pubDate>
+      
+      <guid>/posts/test-post/</guid>
+      <description>Hello World! Welcome to my blog! My name is Aqil, and I&amp;rsquo;m a software engineer here in Toronto, Canada. I also do some data science consulting in my spare time, so if you&amp;rsquo;re ever interested, reach out.
+The purpose of this blog is to capture what I have learned and share these learnings. I&amp;rsquo;ll cover some helpful tips and tricks as I find them, engineering leadership things, and capture how I view certain parts of the software world.</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Problems on Aqil&#39;s Dev Blog</title>
+    <link>/tags/problems/</link>
+    <description>Recent content in Problems on Aqil&#39;s Dev Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright>
+    <lastBuildDate>Wed, 14 Mar 2018 11:04:54 -0400</lastBuildDate>
+    
+	<atom:link href="/tags/problems/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Complex vs Complicated</title>
+      <link>/posts/complicated-complex/</link>
+      <pubDate>Wed, 14 Mar 2018 11:04:54 -0400</pubDate>
+      
+      <guid>/posts/complicated-complex/</guid>
+      <description>Complex vs Complicated What determines the difference between a complicated and a complex problem? Is there a difference between the two? Here&amp;rsquo;s my definitions (as they relate to startups):
+ Complicated - technologically difficult, but with a clear path to achieving the goal. The technology may make it infeasible at a current point in time, but with iteration on the technology, the goal can be achieved. The litmus test I would use for this is, if I could change out the central piece of technology that this problem is reliant on, and make it behave any way that I imagine, would the problem be mostly eradicated?</description>
+    </item>
+    
+  </channel>
+</rss>

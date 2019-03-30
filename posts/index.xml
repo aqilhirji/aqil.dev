@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+	<channel>
+		<title>Posts on Aqil&#39;s Dev Blog</title>
+		<link>/posts/</link>
+		<description>Recent content in Posts on Aqil&#39;s Dev Blog</description>
+		<generator>Hugo -- gohugo.io</generator>
+		<language>en-us</language>
+		<copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright>
+		<lastBuildDate>Tue, 02 Oct 2018 22:04:54 -0400</lastBuildDate>
+		<atom:link href="/posts/index.xml" rel="self" type="application/rss+xml" />
+		
+		<item>
+			<title>Dendrons are Trees (or are they?)</title>
+			<link>/posts/dendrons-and-trees/</link>
+			<pubDate>Tue, 02 Oct 2018 22:04:54 -0400</pubDate>
+			
+			<guid>/posts/dendrons-and-trees/</guid>
+			<description>Turning Dendrograms Into Useful Tree Objects Dendron Trees (Dendrograms). They&amp;rsquo;re a great way to visualize the application of hierarchical cluster analysis. I tried to convert a dendron graph to a standard python tree structure, but discovered the method is rather cumbersome. Without the dendron chart parsed into a tree structure it is difficult to use the original dendron or linkage structures to do anything useful with the produced linkage (for example, reccomending neighbouring leaves, or determining the weight of a branch of the dendron tree).</description>
+			<content type="html"><![CDATA[
+
+<h3 id="turning-dendrograms-into-useful-tree-objects">Turning Dendrograms Into Useful Tree Objects</h3>
+
+<p>Dendron Trees (Dendrograms). They&rsquo;re a great way to visualize the application of hierarchical cluster analysis. I tried to convert a dendron graph to a standard python tree structure, but discovered the method is rather cumbersome. Without the dendron chart parsed into a tree structure it is difficult to use the original dendron or linkage structures to do anything useful with the produced linkage (for example, reccomending neighbouring leaves, or determining the weight of a branch of the dendron tree). I put this article together to help anyone trying to tackle a similar problem in the future.</p>
+
+<p>Hypothetical example: using Ward&rsquo;s method to hierarchically cluster a group of somethings that are in a distance matrix. Let&rsquo;s imagine for the sake of this excercise, that we already have a distance matrix, but it&rsquo;s in triangular form. we&rsquo;re going to read into our python program with the following:</p>
+
+<pre><code>import pandas as pd
+from matplotlib import pyplot as plt
+from scipy.cluster.hierarchy import dendrogram, linkage, ward
+from scipy.spatial.distance import squareform
+import numpy as np 
+import treelib
+import csv
+
+distance_matrix = pd.read_csv('/my_dm.csv')
+dm_condensed = squareform(distance_matrix)
+
+labels_for_distance_matrix = [&quot;label1&quot;, &quot;label2&quot;, &quot;label3&quot;]
+</code></pre>
+
+<p>Next we&rsquo;ll apply Ward&rsquo;s hierarchical custering method, using the Ward method from scipy.cluster.hierarchy. (The source code for this matches the Ward.D. clustering method from R packages if you are familiar with R, and hierarchical clustering in R). The Ward method creates a scipy.cluster.hierarchy &ldquo;hierarchy/linkage&rdquo; object. A hierarchy/linkage object is a compressed mapping of leafs and nodes that are nicely reflected in a dendrogam chart - the linkage structure is interesting, but I will leave its exploration as an excercise for the reader.</p>
+
+<p>We&rsquo;ll also create a dendrogram plot, using the matplotlib library and the linkage object we produced. We&rsquo;ll save the plot into the</p>
+
+<pre><code># z is a linkage object
+z = ward(dm_condensed)
+
+plt.figure(figsize=(25,10))
+plt.title(&quot;Hierarchical Clustering of Widgets (Ward's Method)&quot;)
+plt.xlabel('idx')
+plt.ylabel('distance')
+dendrogram(
+    z,
+    leaf_rotation=90.,
+    leaf_font_size=8.,
+    labels=labels_for_distance_matrix,
+)
+plt.savefig(&quot;dendrogram.pdf&quot;, bbox_inches='tight')
+plt.clf()
+
+</code></pre>
+
+<p>Once we&rsquo;ve done the above, we should get a dendrogram that looks something like this:</p>
+
+<p><img src="https://www.researchgate.net/publication/272844080/figure/fig6/AS:268000804732931@1440907779089/The-dendrogram-of-the-11-tested-species-based-on-the-similarity-matrix-in-Table-4-The.png" alt="dendrogram" /></p>
+
+<p>Now for the fun part, we need to turn this into something that we can actually use in an application! I&rsquo;ll use the treelib python library to do this.</p>
+
+<pre><code># checks linkage validity
+if hierarchy.is_valid_linkage(z) == False:
+    raise Exception(&quot;linkage is not valid&quot;)
+
+from scipy.cluster import hierarchy
+rootNode, nodelist = hierarchy.to_tree(z, rd=True)
+</code></pre>
+
+<p>At this point, we now have a hierarchy package tree object (not quite a treelib tree object yet). Unfortunately the hierarchy tree is not very useful and gives us limited methods to traverse the nodes and the leaves of the tree. We&rsquo;ll convert the tree to a treelib tree by first writing the nodes of the tree to a csv file.</p>
+
+<pre><code># Print the formatted nodes to a csv
+outfile = open('temp-vector-dump.csv', mode='w')
+w = csv.writer(outfile)
+i = len(nodelist)-1
+while i &gt;= 0:
+    node = nodelist[i]
+    if node.get_id() &gt;= len(label_from_dm):
+        left = node.get_left()
+        right = node.get_right()
+        try:
+            leftID = left.get_id()
+        except:
+            leftID = &quot;leaf&quot;
+        try:
+            rightID = right.get_id()
+        except:
+            rightID = &quot;leaf&quot;
+        if leftID &lt; (len(label_from_dm) - 1):
+            leftID = label_from_dm[leftID]
+        if rightID &lt; (len(label_from_dm) - 1):
+            rightID = label_from_dm[rightID]
+
+        node_id_left = node.get_id()
+        node_id_right = node.get_id()
+
+        if isinstance(leftID,str):
+            left_data = consumption_vector_dict[leftID]
+            node_id_left = str(node_id_left) + &quot;,&quot; + left_data
+        if isinstance(rightID,str):
+            right_data = consumption_vector_dict[rightID]
+            node_id_right = str(node_id_right) + &quot;,&quot; + right_data
+
+        plist1 = &quot;,&quot;.join(map(str, [leftID, leftID, node_id_left]))
+        plist2 = &quot;,&quot;.join(map(str, [rightID, rightID, node_id_right]))
+
+        w.writerows([plist1.split(',')])
+        w.writerows([plist2.split(',')])
+
+    i = i - 1
+
+outfile.close()
+
+print(&quot;outfile created: temp_vector_dump.csv&quot;)
+</code></pre>
+
+<p>Add a little break so we can inspect the outfile and add any new leaves or nodes you would like to add. Then we continue to parse the csv file into a python treelib object.</p>
+<div class="highlight"><pre class="chroma"><code class="language-print("please edit or replace the outfile now.")" data-lang="print("please edit or replace the outfile now.")">print(&#39;.&#39;)
+print(&#39;.&#39;)
+print(&#39;.&#39;)
+print(&#39;.&#39;)
+print(&#39;.&#39;)
+print(&#39;.&#39;)
+print(&#39;.&#39;)
+print(&#39;.&#39;)
+
+input(&#34;Press Enter to continue...&#34;)
+
+widgetTree = treelib.Tree()
+
+try:
+    tree_infile = open(&#39;temp-vector-dump.csv&#39;, mode=&#39;r&#39;)
+except:
+    print(&#34;temp-vector-dump.csv not found. This file is required to generate the tree and weight vectors.&#34;)
+reader = csv.reader(tree_infile)
+first_row = True
+for rows in reader:
+    if first_row:
+        gtree.create_node(rows[2], rows[2])
+        first_row = False
+    if len(rows) == 4:
+        gtree.create_node(rows[0], rows[1], rows[2], data = null)
+    else:
+        gtree.create_node(rows[0], rows[1], rows[2])
+
+tree_infile.close()
+
+# display the tree in the terminal
+widgetTree.show()
+
+# should produce something like this:
+Node1
+├── Node2
+│   └── Node3
+│       ├── WidgetA
+│       └── WidgetB
+└── Node4
+    ├── Node5
+    │   └── WidgetC
+    └── Widget D</code></pre></div>
+<p>At this point we can traverse the nodes of the tree just like any other treelib tree object. The tree object has quite a few methods available, with the details of those methods in the documentation: <a href="https://treelib.readthedocs.io/en/stable/pyapi.html#tree-objects">Treelib Tree Docs.</a></p>
+
+<p>Let me know if this was useful for you! I&rsquo;ll try and turn this into a more extensible package, if there&rsquo;s enough appetite for it.</p>
+
+<p>AH</p>
+]]></content>
+		</item>
+		
+		<item>
+			<title>Complex vs Complicated</title>
+			<link>/posts/complicated-complex/</link>
+			<pubDate>Wed, 14 Mar 2018 11:04:54 -0400</pubDate>
+			
+			<guid>/posts/complicated-complex/</guid>
+			<description>Complex vs Complicated What determines the difference between a complicated and a complex problem? Is there a difference between the two? Here&amp;rsquo;s my definitions (as they relate to startups):
+ Complicated - technologically difficult, but with a clear path to achieving the goal. The technology may make it infeasible at a current point in time, but with iteration on the technology, the goal can be achieved. The litmus test I would use for this is, if I could change out the central piece of technology that this problem is reliant on, and make it behave any way that I imagine, would the problem be mostly eradicated?</description>
+			<content type="html"><![CDATA[
+
+<h3 id="complex-vs-complicated">Complex vs Complicated</h3>
+
+<p>What determines the difference between a complicated and a complex problem? Is there a difference between the two? Here&rsquo;s my definitions (as they relate to startups):</p>
+
+<ol>
+<li><p><em>Complicated</em> - technologically difficult, but with a clear path to achieving the goal. The technology may make it infeasible at a current point in time, but with iteration on the technology, the goal can be achieved. The litmus test I would use for this is, if I could change out the central piece of technology that this problem is reliant on, and make it behave any way that I imagine, would the problem be mostly eradicated? Another question I often ask is, assuming that I am making progress towards the goal is there a clear method to measure this progress?</p></li>
+
+<li><p><em>Complex</em> - of or involving multiple domains, where the path to a goal is not so clear or precise. By &ldquo;not so clear or precise&rdquo; I specifically mean that actions taken by individuals pursuing the goal do not necessarily correlate to progress towards the goal. It is unclear whether or not specific actions will have any impact (they may even have unknown negative impacts) towards the achievement of the goal. The litmus test here is to ask someone who is trying to solve one of these problems if they have a clear understanding of how specific actions contribute to specific outcomes related to their larger goal.</p></li>
+</ol>
+
+<p>So which types of problems should we pursue? And how should they be pursued? And who are the stakeholders? And how do leaders structure their teams to pursue them? And why does all of this matter?</p>
+
+<p>The truth is, that large companies generally tackle problems of both types. They adopt managment structures that are suited to the type of problem, with more room to innovate in complex problem spaces, and more room to iterate in complicated problem spaces (in the best case scenarios).
+But startups usually start with only tackling one of these at a time, and it&rsquo;s important that they get the structure right, in my experience. Complex problems require additional competencies to complicated problems, and sometimes the &ldquo;disruptive&rdquo; actions of startups alone can&rsquo;t do enough to create lasting change in complex problem spaces.</p>
+
+<p>Competencies are the responsibility of startup leadership teams to curate. If a problem space is complex enough in nature (actions do not equal results), the best defence that a leadership team can take to reduce the ambiguity of the situation is to acquire the competencies in the cross-affected domains of their problem.</p>
+
+<p>Curious to hear of any thoughts or practical examples some of you may have. For legal reasons, I can&rsquo;t share many of my experiences.</p>
+
+<p>AH</p>
+]]></content>
+		</item>
+		
+		<item>
+			<title>About me, about this</title>
+			<link>/posts/test-post/</link>
+			<pubDate>Fri, 05 Jan 2018 13:25:54 -0400</pubDate>
+			
+			<guid>/posts/test-post/</guid>
+			<description>Hello World! Welcome to my blog! My name is Aqil, and I&amp;rsquo;m a software engineer here in Toronto, Canada. I also do some data science consulting in my spare time, so if you&amp;rsquo;re ever interested, reach out.
+The purpose of this blog is to capture what I have learned and share these learnings. I&amp;rsquo;ll cover some helpful tips and tricks as I find them, engineering leadership things, and capture how I view certain parts of the software world.</description>
+			<content type="html"><![CDATA[
+
+<h3 id="hello-world">Hello World!</h3>
+
+<p>Welcome to my blog! My name is Aqil, and I&rsquo;m a software engineer here in Toronto, Canada. I also do some data science consulting in my spare time, so if you&rsquo;re ever interested, reach out.</p>
+
+<p>The purpose of this blog is to capture what I have learned and share these learnings. I&rsquo;ll cover some helpful tips and tricks as I find them, engineering leadership things, and capture how I view certain parts of the software world.</p>
+
+<p>I&rsquo;m excited to be here, and to use this platform to generate some discussion, and form opinions around complex problems. Thanks all, for joining me on this ride, and I look forward to our discussions.</p>
+
+<p>AH</p>
+]]></content>
+		</item>
+		
+	</channel>
+</rss>

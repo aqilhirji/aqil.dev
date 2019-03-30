@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>First Post on Aqil&#39;s Dev Blog</title>
+    <link>/tags/first-post/</link>
+    <description>Recent content in First Post on Aqil&#39;s Dev Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright>
+    <lastBuildDate>Fri, 05 Jan 2018 13:25:54 -0400</lastBuildDate>
+    
+	<atom:link href="/tags/first-post/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>About me, about this</title>
+      <link>/posts/test-post/</link>
+      <pubDate>Fri, 05 Jan 2018 13:25:54 -0400</pubDate>
+      
+      <guid>/posts/test-post/</guid>
+      <description>Hello World! Welcome to my blog! My name is Aqil, and I&amp;rsquo;m a software engineer here in Toronto, Canada. I also do some data science consulting in my spare time, so if you&amp;rsquo;re ever interested, reach out.
+The purpose of this blog is to capture what I have learned and share these learnings. I&amp;rsquo;ll cover some helpful tips and tricks as I find them, engineering leadership things, and capture how I view certain parts of the software world.</description>
+    </item>
+    
+  </channel>
+</rss>

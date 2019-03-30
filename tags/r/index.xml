@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>R on Aqil&#39;s Dev Blog</title>
+    <link>/tags/r/</link>
+    <description>Recent content in R on Aqil&#39;s Dev Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright>
+    <lastBuildDate>Tue, 02 Oct 2018 22:04:54 -0400</lastBuildDate>
+    
+	<atom:link href="/tags/r/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Dendrons are Trees (or are they?)</title>
+      <link>/posts/dendrons-and-trees/</link>
+      <pubDate>Tue, 02 Oct 2018 22:04:54 -0400</pubDate>
+      
+      <guid>/posts/dendrons-and-trees/</guid>
+      <description>Turning Dendrograms Into Useful Tree Objects Dendron Trees (Dendrograms). They&amp;rsquo;re a great way to visualize the application of hierarchical cluster analysis. I tried to convert a dendron graph to a standard python tree structure, but discovered the method is rather cumbersome. Without the dendron chart parsed into a tree structure it is difficult to use the original dendron or linkage structures to do anything useful with the produced linkage (for example, reccomending neighbouring leaves, or determining the weight of a branch of the dendron tree).</description>
+    </item>
+    
+  </channel>
+</rss>

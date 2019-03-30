@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  
+  <url>
+    <loc>/about/</loc>
+    <lastmod>2019-03-12T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/posts/dendrons-and-trees/</loc>
+    <lastmod>2018-10-02T22:04:54-04:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/posts/complicated-complex/</loc>
+    <lastmod>2018-03-14T11:04:54-04:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/posts/test-post/</loc>
+    <lastmod>2018-01-05T13:25:54-04:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/about/</loc>
+    <lastmod>2018-01-05T13:25:54-04:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/</loc>
+    <lastmod>2019-03-12T00:00:00+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/cluster/</loc>
+    <lastmod>2018-10-02T22:04:54-04:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/clustering/</loc>
+    <lastmod>2018-10-02T22:04:54-04:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/complex/</loc>
+    <lastmod>2018-03-14T11:04:54-04:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/complicated/</loc>
+    <lastmod>2018-03-14T11:04:54-04:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/dendrogram/</loc>
+    <lastmod>2018-10-02T22:04:54-04:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/dendron/</loc>
+    <lastmod>2018-10-02T22:04:54-04:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/first-post/</loc>
+    <lastmod>2018-01-05T13:25:54-04:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/matplotlib/</loc>
+    <lastmod>2018-10-02T22:04:54-04:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/numpy/</loc>
+    <lastmod>2018-10-02T22:04:54-04:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/pandas/</loc>
+    <lastmod>2018-10-02T22:04:54-04:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/posts/</loc>
+    <lastmod>2018-10-02T22:04:54-04:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/problems/</loc>
+    <lastmod>2018-03-14T11:04:54-04:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/python/</loc>
+    <lastmod>2018-10-02T22:04:54-04:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/r/</loc>
+    <lastmod>2018-10-02T22:04:54-04:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/scipy/</loc>
+    <lastmod>2018-10-02T22:04:54-04:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/</loc>
+    <lastmod>2018-01-05T13:25:54-04:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/tree/</loc>
+    <lastmod>2018-10-02T22:04:54-04:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/treelib/</loc>
+    <lastmod>2018-10-02T22:04:54-04:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/wards-method/</loc>
+    <lastmod>2018-10-02T22:04:54-04:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>/tags/welcome/</loc>
+    <lastmod>2018-01-05T13:25:54-04:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+</urlset>

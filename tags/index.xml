@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Tags on Aqil&#39;s Dev Blog</title>
+    <link>/tags/</link>
+    <description>Recent content in Tags on Aqil&#39;s Dev Blog</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright>
+    <lastBuildDate>Fri, 05 Jan 2018 13:25:54 -0400</lastBuildDate>
+    
+	<atom:link href="/tags/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>About</title>
+      <link>/tags/about/</link>
+      <pubDate>Fri, 05 Jan 2018 13:25:54 -0400</pubDate>
+      
+      <guid>/tags/about/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Cluster</title>
+      <link>/tags/cluster/</link>
+      <pubDate>Tue, 02 Oct 2018 22:04:54 -0400</pubDate>
+      
+      <guid>/tags/cluster/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Clustering</title>
+      <link>/tags/clustering/</link>
+      <pubDate>Tue, 02 Oct 2018 22:04:54 -0400</pubDate>
+      
+      <guid>/tags/clustering/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Complex</title>
+      <link>/tags/complex/</link>
+      <pubDate>Wed, 14 Mar 2018 11:04:54 -0400</pubDate>
+      
+      <guid>/tags/complex/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Complicated</title>
+      <link>/tags/complicated/</link>
+      <pubDate>Wed, 14 Mar 2018 11:04:54 -0400</pubDate>
+      
+      <guid>/tags/complicated/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Dendrogram</title>
+      <link>/tags/dendrogram/</link>
+      <pubDate>Tue, 02 Oct 2018 22:04:54 -0400</pubDate>
+      
+      <guid>/tags/dendrogram/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Dendron</title>
+      <link>/tags/dendron/</link>
+      <pubDate>Tue, 02 Oct 2018 22:04:54 -0400</pubDate>
+      
+      <guid>/tags/dendron/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>First Post</title>
+      <link>/tags/first-post/</link>
+      <pubDate>Fri, 05 Jan 2018 13:25:54 -0400</pubDate>
+      
+      <guid>/tags/first-post/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Matplotlib</title>
+      <link>/tags/matplotlib/</link>
+      <pubDate>Tue, 02 Oct 2018 22:04:54 -0400</pubDate>
+      
+      <guid>/tags/matplotlib/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Numpy</title>
+      <link>/tags/numpy/</link>
+      <pubDate>Tue, 02 Oct 2018 22:04:54 -0400</pubDate>
+      
+      <guid>/tags/numpy/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>
