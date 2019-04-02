@@ -22,6 +22,24 @@
     </item>
     
     <item>
+      <title>Analytics</title>
+      <link>/tags/analytics/</link>
+      <pubDate>Mon, 01 Apr 2019 23:25:54 -0400</pubDate>
+      
+      <guid>/tags/analytics/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Architecture</title>
+      <link>/tags/architecture/</link>
+      <pubDate>Mon, 01 Apr 2019 23:25:54 -0400</pubDate>
+      
+      <guid>/tags/architecture/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>Cluster</title>
       <link>/tags/cluster/</link>
       <pubDate>Wed, 03 Oct 2018 22:04:54 -0400</pubDate>
@@ -58,47 +76,29 @@
     </item>
     
     <item>
+      <title>Data Engineering</title>
+      <link>/tags/data-engineering/</link>
+      <pubDate>Mon, 01 Apr 2019 23:25:54 -0400</pubDate>
+      
+      <guid>/tags/data-engineering/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Data Science</title>
+      <link>/tags/data-science/</link>
+      <pubDate>Mon, 01 Apr 2019 23:25:54 -0400</pubDate>
+      
+      <guid>/tags/data-science/</guid>
+      <description></description>
+    </item>
+    
+    <item>
       <title>Dendrogram</title>
       <link>/tags/dendrogram/</link>
       <pubDate>Wed, 03 Oct 2018 22:04:54 -0400</pubDate>
       
       <guid>/tags/dendrogram/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Dendron</title>
-      <link>/tags/dendron/</link>
-      <pubDate>Wed, 03 Oct 2018 22:04:54 -0400</pubDate>
-      
-      <guid>/tags/dendron/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>First Post</title>
-      <link>/tags/first-post/</link>
-      <pubDate>Fri, 05 Jan 2018 13:25:54 -0400</pubDate>
-      
-      <guid>/tags/first-post/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Matplotlib</title>
-      <link>/tags/matplotlib/</link>
-      <pubDate>Wed, 03 Oct 2018 22:04:54 -0400</pubDate>
-      
-      <guid>/tags/matplotlib/</guid>
-      <description></description>
-    </item>
-    
-    <item>
-      <title>Numpy</title>
-      <link>/tags/numpy/</link>
-      <pubDate>Wed, 03 Oct 2018 22:04:54 -0400</pubDate>
-      
-      <guid>/tags/numpy/</guid>
       <description></description>
     </item>
     

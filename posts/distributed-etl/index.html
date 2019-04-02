@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<meta name="theme-color" content="#494f5c">
+	<meta name="msapplication-TileColor" content="#494f5c">
+
+<meta itemprop="name" content="Distributed ETL? Do&#39;s and Don&#39;ts.">
+<meta itemprop="description" content="A distributed ETL? Why? How? Would you recommend? ✅ ❌ I came across a challenge recently, to explain to a potential pen-pal, about a certain project I had completed recently. The caveat to this question was that the receiver of the communication was someone who was interested in your work, but not necessarily familiar with the terminology. I thought it was a useful exercise so I thought I would share a modified version of my submission.">
+
+
+<meta itemprop="datePublished" content="2019-04-01T23:25:54-04:00" />
+<meta itemprop="dateModified" content="2019-04-01T23:25:54-04:00" />
+<meta itemprop="wordCount" content="1168">
+
+
+
+<meta itemprop="keywords" content="etl,Go,kuberntetes,python,architecture,data engineering,data science,analytics," />
+<meta property="og:title" content="Distributed ETL? Do&#39;s and Don&#39;ts." />
+<meta property="og:description" content="A distributed ETL? Why? How? Would you recommend? ✅ ❌ I came across a challenge recently, to explain to a potential pen-pal, about a certain project I had completed recently. The caveat to this question was that the receiver of the communication was someone who was interested in your work, but not necessarily familiar with the terminology. I thought it was a useful exercise so I thought I would share a modified version of my submission." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="/posts/distributed-etl/" />
+<meta property="article:published_time" content="2019-04-01T23:25:54-04:00"/>
+<meta property="article:modified_time" content="2019-04-01T23:25:54-04:00"/>
+<meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="Distributed ETL? Do&#39;s and Don&#39;ts."/>
+<meta name="twitter:description" content="A distributed ETL? Why? How? Would you recommend? ✅ ❌ I came across a challenge recently, to explain to a potential pen-pal, about a certain project I had completed recently. The caveat to this question was that the receiver of the communication was someone who was interested in your work, but not necessarily familiar with the terminology. I thought it was a useful exercise so I thought I would share a modified version of my submission."/>
+
+	<link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png">
+	<link rel="manifest" href="/site.webmanifest">
+	<link rel="mask-icon" href="/safari-pinned-tab.svg" color="">
+	<link rel="shortcut icon" href="/favicon.ico">
+
+	<title>Distributed ETL? Do&#39;s and Don&#39;ts.</title>
+	<link rel="stylesheet" href="/css/style.min.c693329ce3bac2503f88115a4011a284a06d53e30f484562a37664dc4c5f0a74.css" integrity="sha256-xpMynOO6wlA/iBFaQBGihKBtU+MPSEVio3Zk3ExfCnQ=">
+	
+</head>
+
+<body id="page">
+	
+	<header id="site-header" class="animated slideInUp faster">
+		<div class="hdr-wrapper section-inner">
+			<div class="hdr-left">
+				<div class="site-branding">
+					<a href="/">Aqil&#39;s Dev Blog</a>
+				</div>
+				<nav class="site-nav hide-in-mobile">
+					<a href="/posts/">Posts</a>
+					<a href="/about/">About</a>
+				</nav>
+			</div>
+			<div class="hdr-right hdr-icons">
+				<span class="hdr-social hide-in-mobile"><a href="https://www.linkedin.com/in/aqilhirji/" target="_blank" rel="noopener" title="Linkedin"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-linkedin"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path><rect x="2" y="9" width="4" height="12"></rect><circle cx="4" cy="4" r="2"></circle></svg></a><a href="https://twitter.com/aqilhirji" target="_blank" rel="noopener" title="Twitter"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-twitter"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path></svg></a><a href="https://instagram.com/realaqil" target="_blank" rel="noopener" title="Instagram"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-instagram"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.5" y2="6.5"></line></svg></a><a href="https://github.com/aqilhirji" target="_blank" rel="noopener" title="Github"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-github"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"></path></svg></a></span><button id="menu-btn" class="hdr-btn" title="Menu"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-menu"><line x1="3" y1="12" x2="21" y2="12"></line><line x1="3" y1="6" x2="21" y2="6"></line><line x1="3" y1="18" x2="21" y2="18"></line></svg></button>
+			</div>
+		</div>
+	</header>
+	<div id="mobile-menu" class="animated fast">
+		<ul>
+			<li><a href="/posts/">Posts</a></li>
+			<li><a href="/about/">About</a></li>
+		</ul>
+	</div>
+
+
+	<main class="site-main section-inner animated fadeIn faster">
+		<article class="thin">
+			<header class="post-header">
+				<div class="post-meta"><span>Apr 1, 2019</span></div>
+				<h1>Distributed ETL? Do&#39;s and Don&#39;ts.</h1>
+			</header>
+			<div class="content">
+				
+
+<h3 id="a-distributed-etl-why-how-would-you-recommend">A distributed ETL? Why? How? Would you recommend?  ✅ ❌<a href="#a-distributed-etl-why-how-would-you-recommend" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+
+<p>I came across a challenge recently, to explain to a potential pen-pal, about a certain project I had completed recently. The caveat to this question was that the receiver of the communication was someone who was interested in your work, but not necessarily familiar with the terminology. I thought it was a useful exercise so I thought I would share a modified version of my submission. I encourage many of you to do the same!</p>
+
+<h3 id="the-project">The project<a href="#the-project" class="anchor" aria-hidden="true"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M15 7h3a5 5 0 0 1 5 5 5 5 0 0 1-5 5h-3m-6 0H6a5 5 0 0 1-5-5 5 5 0 0 1 5-5h3"></path><line x1="8" y1="12" x2="16" y2="12"></line></svg></a></h3>
+
+<p>A recent project we took on, was to build a distributed ETL from scratch, deployed as composable Go services. This sounds confusing&hellip; To simplify imagine this, the application, has a database behind it which is a noSQL database, and our analytics and data science teams wanted this data in a SQL database (a noSQL database is like storing each user&rsquo;s information in a fancy text file, whereas a SQL database is more like an Excel file, where data is more organized and structured).</p>
+
+<p>The key parts of ETL are Extract, Transform, and Load. Extract takes the data in a particular format and gives the rest of the system access to it; Transforms take the new messages and modify them to be more useful for the consumers of that data; Loaders deal with formatting the data correctly for where it will be stored or used.</p>
+
+<p>And so we began to design the project. We started with some of the following constraints:
+1. Good support for separation of ETL concerns. Each piece of the solution should be responsible for a limited domain, and be simple enough to quickly understand that domain when reading the code.
+2. Performant. The solution had to be performant for up to 100s of millions of records a day, and  each part of the pipeline should be performant.
+3. Replication. We planned to deploy this architecture using Kubernetes, and wanted to make sure all aspects of the solution supported replication to deal with higher load.
+4. Resiliency. The solution had to be resilient. Engineers needed reasonable confidence that if data was written to the application, the same data (cleaned and transformed) would be written to the analytics environment in reasonable time. We also needed to guarantee that messages would not be lost in the pipeline itself.
+5. Extensibility. The solution had to be extensible. We should be able to add as many Extractors, Transformers, and Loaders to the ETL as we would like.
+6. Normalization built in. We needed the ETL to be clever enough to normalize our data from the noSQL format we mentioned earlier, to relational SQL data.
+7. Relational mandatory.</p>
+
+<p>With all of the above constraints in mind, we came up with a few architectural plans. Some of them were:</p>
+
+<ul>
+<li>Spark jobs on an EMR cluster that would write to Redshift.</li>
+<li>Third party ETL solutions.</li>
+<li>A clone of the application db (noSQL format) for all analytics and data science.</li>
+<li>Go based microservices to stream the application data to a data warehouse / data lake over a message broker.</li>
+</ul>
+
+<p>We ended up choosing the Go microservices with the message broker. The reasons for doing so were the clean separation of concerns enforced in the architecture, the performance that Go is so renowned for, the ability to easily replicate to scale various parts of the system depending on what was being loaded, and the resiliency (more on this later) of a pub-sub message broker. Finally, a big concern was that metrics would be streaming to the analytics environment in real-time instead of waiting for a large dump of the data to complete, resulting in the ability to measure nuanced experiments as they happened.</p>
+
+<p>The structure sort of looked something like this:</p>
+
+<p><img src="aqil.dev/ETL_architecture.png" alt="ETL Architecure" /></p>
+
+<p>&ldquo;Great! Looks like you&rsquo;ve built a solid solution!&rdquo; -  you may say to me. What&rsquo;s not to like?</p>
+
+<p>There is a lot to be proud of  here. The architecure scales well. The separation of concerns enforced in the architecture is beautiful. The (not pictured) ability to send one message to multiple places, and transform each set of messages to work for each loader makes extending data pipelines dead simple, with a clear code pattern. The use of Go for the solution and an open-source technology for a message broker is performant and minimal.</p>
+
+<p>But with hindsight being <sup>20</sup>&frasl;<sub>20</sub>, we had implemented a fatal flaw. We used a very young technology (that we self-hosted) for our message broker - <a href="https://github.com/nats-io/go-nats-streaming">NATS-Streaming</a>. There was a few major problems with it:
+1. The package was in beta format, and unlike its sibling NATS, seemed like it was being maintained by a small group of individuals who were unrelated to the NATS product (found this out later).
+2. The package makes some odd, immutable decisions about implementation (queues are capped at a maximum of 1,000,000 records), and doesn&rsquo;t quite alert you loudly when it is dropping messages from queues (warning alerts instead of Error alerts or Panics)
+3. It is missing a fundamental concept of distributed systems - backpressure. NATS-Streaming has no way to account for a slow reader, or an extremely fast publisher. There are hard rate limits you can apply, but at that point you are limiting the throughput and no-longer allowing it to scale, defeating the purpose of the architecture. In my opinion this is a major oversight on the part of the NATS-streaming team, which I hope they remedy in the future.
+4. Monitor and alert on every major point in your pipeline. If writes through a certain piece of architecture drop, you should know about it. If a piece of the architecture is hitting some kind of rate limit, you should know about it. If NATS Streaming is dropping messages, you should know about it!
+5. NATS Streaming doesn&rsquo;t offer much in the way of monitoring/visualization endpoints. It really is as minimal as it gets, which bites both ways. Make sure monitoring exists of every queue and channel of critical infrastructure like this. NATS doesn&rsquo;t support this out of the box, but we were able to do this with other open source tools such as Prometheus.</p>
+
+<p>Again I want to re-iterate how proud I was of what we built. I thought the lessons learned, would be useful to others considering a similar path. We eventually ended up switching to a much more durable set of SQS queues, that came with out of the box monitoring, and it has alleviated many of our problems.</p>
+
+<p>There&rsquo;s another (more personal) takeaway from all of this work that I would like to share. When you empower teams to access data, they will inevitably want more, and it will inevitably lead to more work for your data teams. It&rsquo;s more important than ever, that companies treat Data like a product, something that&rsquo;s always evolving, and meant to be used by teams to deal with particular problems and pain points. If data isn&rsquo;t a first class citizen, it will always feel like it&rsquo;s lagging a company&rsquo;s progress. I might be slightly biased.</p>
+
+<p>AH</p>
+
+			</div>
+			<hr class="post-end">
+			<footer class="post-info">
+				<p>
+					<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="/tags/etl">etl</a></span><span class="tag"><a href="/tags/go">Go</a></span><span class="tag"><a href="/tags/kuberntetes">kuberntetes</a></span><span class="tag"><a href="/tags/python">python</a></span><span class="tag"><a href="/tags/architecture">architecture</a></span><span class="tag"><a href="/tags/data-engineering">data engineering</a></span><span class="tag"><a href="/tags/data-science">data science</a></span><span class="tag"><a href="/tags/analytics">analytics</a></span>
+				</p>
+				<p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>1168 Words</p>
+				<p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>2019-04-01 23:25 -0400</p>
+			</footer>
+		</article>
+		<div class="post-nav thin">
+			<a class="prev-post" href="/posts/dendrons-and-trees/">
+				<span class="post-nav-label">Older&nbsp;<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-arrow-right"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></span><br><span>Dendrons are Trees (or are they?)</span>
+			</a>
+		</div>
+		<div id="comments" class="thin">
+<div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "aqil-dev" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</div>
+	</main>
+
+	<footer id="site-footer" class="section-inner thin animated fadeIn faster">
+		<p>&copy; 2019 <a href="/">Aqil Hirji</a></p>
+	</footer>
+
+
+	<script src="/js/main.min.8f39f24808e9d0a9b02da58c2d2838da859dc0b7bdfadbdb1883aae8b6adacfe.js" integrity="sha256-jznySAjp0KmwLaWMLSg42oWdwLe9+tvbGIOq6LatrP4="></script>
+
+</body>
+
+</html>

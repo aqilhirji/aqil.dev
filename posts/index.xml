@@ -7,8 +7,70 @@
 		<generator>Hugo -- gohugo.io</generator>
 		<language>en-us</language>
 		<copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright>
-		<lastBuildDate>Wed, 03 Oct 2018 22:04:54 -0400</lastBuildDate>
+		<lastBuildDate>Mon, 01 Apr 2019 23:25:54 -0400</lastBuildDate>
 		<atom:link href="/posts/index.xml" rel="self" type="application/rss+xml" />
+		
+		<item>
+			<title>Distributed ETL? Do&#39;s and Don&#39;ts.</title>
+			<link>/posts/distributed-etl/</link>
+			<pubDate>Mon, 01 Apr 2019 23:25:54 -0400</pubDate>
+			
+			<guid>/posts/distributed-etl/</guid>
+			<description>A distributed ETL? Why? How? Would you recommend? ✅ ❌ I came across a challenge recently, to explain to a potential pen-pal, about a certain project I had completed recently. The caveat to this question was that the receiver of the communication was someone who was interested in your work, but not necessarily familiar with the terminology. I thought it was a useful exercise so I thought I would share a modified version of my submission.</description>
+			<content type="html"><![CDATA[
+
+<h3 id="a-distributed-etl-why-how-would-you-recommend">A distributed ETL? Why? How? Would you recommend?  ✅ ❌</h3>
+
+<p>I came across a challenge recently, to explain to a potential pen-pal, about a certain project I had completed recently. The caveat to this question was that the receiver of the communication was someone who was interested in your work, but not necessarily familiar with the terminology. I thought it was a useful exercise so I thought I would share a modified version of my submission. I encourage many of you to do the same!</p>
+
+<h3 id="the-project">The project</h3>
+
+<p>A recent project we took on, was to build a distributed ETL from scratch, deployed as composable Go services. This sounds confusing&hellip; To simplify imagine this, the application, has a database behind it which is a noSQL database, and our analytics and data science teams wanted this data in a SQL database (a noSQL database is like storing each user&rsquo;s information in a fancy text file, whereas a SQL database is more like an Excel file, where data is more organized and structured).</p>
+
+<p>The key parts of ETL are Extract, Transform, and Load. Extract takes the data in a particular format and gives the rest of the system access to it; Transforms take the new messages and modify them to be more useful for the consumers of that data; Loaders deal with formatting the data correctly for where it will be stored or used.</p>
+
+<p>And so we began to design the project. We started with some of the following constraints:
+1. Good support for separation of ETL concerns. Each piece of the solution should be responsible for a limited domain, and be simple enough to quickly understand that domain when reading the code.
+2. Performant. The solution had to be performant for up to 100s of millions of records a day, and  each part of the pipeline should be performant.
+3. Replication. We planned to deploy this architecture using Kubernetes, and wanted to make sure all aspects of the solution supported replication to deal with higher load.
+4. Resiliency. The solution had to be resilient. Engineers needed reasonable confidence that if data was written to the application, the same data (cleaned and transformed) would be written to the analytics environment in reasonable time. We also needed to guarantee that messages would not be lost in the pipeline itself.
+5. Extensibility. The solution had to be extensible. We should be able to add as many Extractors, Transformers, and Loaders to the ETL as we would like.
+6. Normalization built in. We needed the ETL to be clever enough to normalize our data from the noSQL format we mentioned earlier, to relational SQL data.
+7. Relational mandatory.</p>
+
+<p>With all of the above constraints in mind, we came up with a few architectural plans. Some of them were:</p>
+
+<ul>
+<li>Spark jobs on an EMR cluster that would write to Redshift.</li>
+<li>Third party ETL solutions.</li>
+<li>A clone of the application db (noSQL format) for all analytics and data science.</li>
+<li>Go based microservices to stream the application data to a data warehouse / data lake over a message broker.</li>
+</ul>
+
+<p>We ended up choosing the Go microservices with the message broker. The reasons for doing so were the clean separation of concerns enforced in the architecture, the performance that Go is so renowned for, the ability to easily replicate to scale various parts of the system depending on what was being loaded, and the resiliency (more on this later) of a pub-sub message broker. Finally, a big concern was that metrics would be streaming to the analytics environment in real-time instead of waiting for a large dump of the data to complete, resulting in the ability to measure nuanced experiments as they happened.</p>
+
+<p>The structure sort of looked something like this:</p>
+
+<p><img src="aqil.dev/ETL_architecture.png" alt="ETL Architecure" /></p>
+
+<p>&ldquo;Great! Looks like you&rsquo;ve built a solid solution!&rdquo; -  you may say to me. What&rsquo;s not to like?</p>
+
+<p>There is a lot to be proud of  here. The architecure scales well. The separation of concerns enforced in the architecture is beautiful. The (not pictured) ability to send one message to multiple places, and transform each set of messages to work for each loader makes extending data pipelines dead simple, with a clear code pattern. The use of Go for the solution and an open-source technology for a message broker is performant and minimal.</p>
+
+<p>But with hindsight being <sup>20</sup>&frasl;<sub>20</sub>, we had implemented a fatal flaw. We used a very young technology (that we self-hosted) for our message broker - <a href="https://github.com/nats-io/go-nats-streaming">NATS-Streaming</a>. There was a few major problems with it:
+1. The package was in beta format, and unlike its sibling NATS, seemed like it was being maintained by a small group of individuals who were unrelated to the NATS product (found this out later).
+2. The package makes some odd, immutable decisions about implementation (queues are capped at a maximum of 1,000,000 records), and doesn&rsquo;t quite alert you loudly when it is dropping messages from queues (warning alerts instead of Error alerts or Panics)
+3. It is missing a fundamental concept of distributed systems - backpressure. NATS-Streaming has no way to account for a slow reader, or an extremely fast publisher. There are hard rate limits you can apply, but at that point you are limiting the throughput and no-longer allowing it to scale, defeating the purpose of the architecture. In my opinion this is a major oversight on the part of the NATS-streaming team, which I hope they remedy in the future.
+4. Monitor and alert on every major point in your pipeline. If writes through a certain piece of architecture drop, you should know about it. If a piece of the architecture is hitting some kind of rate limit, you should know about it. If NATS Streaming is dropping messages, you should know about it!
+5. NATS Streaming doesn&rsquo;t offer much in the way of monitoring/visualization endpoints. It really is as minimal as it gets, which bites both ways. Make sure monitoring exists of every queue and channel of critical infrastructure like this. NATS doesn&rsquo;t support this out of the box, but we were able to do this with other open source tools such as Prometheus.</p>
+
+<p>Again I want to re-iterate how proud I was of what we built. I thought the lessons learned, would be useful to others considering a similar path. We eventually ended up switching to a much more durable set of SQS queues, that came with out of the box monitoring, and it has alleviated many of our problems.</p>
+
+<p>There&rsquo;s another (more personal) takeaway from all of this work that I would like to share. When you empower teams to access data, they will inevitably want more, and it will inevitably lead to more work for your data teams. It&rsquo;s more important than ever, that companies treat Data like a product, something that&rsquo;s always evolving, and meant to be used by teams to deal with particular problems and pain points. If data isn&rsquo;t a first class citizen, it will always feel like it&rsquo;s lagging a company&rsquo;s progress. I might be slightly biased.</p>
+
+<p>AH</p>
+]]></content>
+		</item>
 		
 		<item>
 			<title>Dendrons are Trees (or are they?)</title>

@@ -7,10 +7,19 @@
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <copyright>This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.</copyright>
-    <lastBuildDate>Tue, 12 Mar 2019 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Mon, 01 Apr 2019 23:25:54 -0400</lastBuildDate>
     
 	<atom:link href="/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Distributed ETL? Do&#39;s and Don&#39;ts.</title>
+      <link>/posts/distributed-etl/</link>
+      <pubDate>Mon, 01 Apr 2019 23:25:54 -0400</pubDate>
+      
+      <guid>/posts/distributed-etl/</guid>
+      <description>A distributed ETL? Why? How? Would you recommend? ✅ ❌ I came across a challenge recently, to explain to a potential pen-pal, about a certain project I had completed recently. The caveat to this question was that the receiver of the communication was someone who was interested in your work, but not necessarily familiar with the terminology. I thought it was a useful exercise so I thought I would share a modified version of my submission.</description>
+    </item>
     
     <item>
       <title>About Me</title>
