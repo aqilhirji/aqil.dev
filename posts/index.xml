@@ -66,7 +66,7 @@
 
 <p>Again I want to re-iterate how proud I was of what we built. I thought the lessons learned, would be useful to others considering a similar path. We eventually ended up switching to a much more durable set of SQS queues, that came with out of the box monitoring, and it has alleviated many of our problems.</p>
 
-<p>There&rsquo;s another (more personal) takeaway from all of this work that I would like to share. When you empower teams to access data, they will inevitably want more, and it will inevitably lead to more work for your data teams. It&rsquo;s more important than ever, that companies treat Data like a product, something that&rsquo;s always evolving, and meant to be used by teams to deal with particular problems and pain points. If data isn&rsquo;t a first class citizen, it will always feel like it&rsquo;s lagging a company&rsquo;s progress. I might be slightly biased.</p>
+<p>There&rsquo;s another (more personal) takeaway from all of this work that I would like to share. When you empower teams to access data, they will inevitably want more, and it will inevitably lead to more work for your data teams. It&rsquo;s more important than ever, that companies treat data like a product, something that&rsquo;s always evolving, and meant to be used by teams to deal with particular problems and pain points. If data isn&rsquo;t a first class citizen, it will always feel like it&rsquo;s lagging a company&rsquo;s progress. I might be slightly biased.</p>
 
 <p>AH</p>
 ]]></content>

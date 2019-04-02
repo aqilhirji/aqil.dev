@@ -100,6 +100,12 @@
   </url>
   
   <url>
+    <loc>/tags/distributed-systems/</loc>
+    <lastmod>2019-04-01T23:25:54-04:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
     <loc>/tags/etl/</loc>
     <lastmod>2019-04-01T23:25:54-04:00</lastmod>
     <priority>0</priority>
