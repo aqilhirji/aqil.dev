@@ -66,10 +66,11 @@
 
 <p>There is a lot to be proud of  here. The architecure scales well. The separation of concerns enforced in the architecture is beautiful. The (not pictured) ability to send one message to multiple places, and transform each set of messages to work for each loader makes extending data pipelines dead simple, with a clear code pattern. The use of Go for the solution and an open-source technology for a message broker is performant and minimal.</p>
 
-<p>But with hindsight being <sup>20</sup>&frasl;<sub>20</sub>, we had implemented a fatal flaw. We used a very young technology (that we self-hosted) for our message broker - <a href="https://github.com/nats-io/go-nats-streaming">NATS-Streaming</a>. There was a few major problems with it:
-1. The package was in beta format, and unlike its sibling NATS, seemed like it was being maintained by a small group of individuals who were unrelated to the NATS product (found this out later).</p>
+<p>But with hindsight being <sup>20</sup>&frasl;<sub>20</sub>, we had implemented a fatal flaw. We used a very young technology (that we self-hosted) for our message broker - <a href="https://github.com/nats-io/go-nats-streaming">NATS-Streaming</a>. There was a few major problems with it:</p>
 
 <ol>
+<li><p>The package was in beta format, and unlike its sibling NATS, seemed like it was being maintained by a small group of individuals who were unrelated to the NATS product (found this out later).</p></li>
+
 <li><p>The package makes some odd, immutable decisions about implementation (queues are capped at a maximum of 1,000,000 records), and doesn&rsquo;t quite alert you loudly when it is dropping messages from queues (warning alerts instead of Error alerts or Panics)</p></li>
 
 <li><p>It is missing a fundamental concept of distributed systems - backpressure. NATS-Streaming has no way to account for a slow reader, or an extremely fast publisher. There are hard rate limits you can apply, but at that point you are limiting the throughput and no-longer allowing it to scale, defeating the purpose of the architecture. In my opinion this is a major oversight on the part of the NATS-streaming team, which I hope they remedy in the future.</p></li>

@@ -14,7 +14,7 @@
 
 <meta itemprop="datePublished" content="2019-04-01T23:25:54-04:00" />
 <meta itemprop="dateModified" content="2019-04-01T23:25:54-04:00" />
-<meta itemprop="wordCount" content="1157">
+<meta itemprop="wordCount" content="1156">
 
 
 
@@ -123,10 +123,11 @@
 
 <p>There is a lot to be proud of  here. The architecure scales well. The separation of concerns enforced in the architecture is beautiful. The (not pictured) ability to send one message to multiple places, and transform each set of messages to work for each loader makes extending data pipelines dead simple, with a clear code pattern. The use of Go for the solution and an open-source technology for a message broker is performant and minimal.</p>
 
-<p>But with hindsight being <sup>20</sup>&frasl;<sub>20</sub>, we had implemented a fatal flaw. We used a very young technology (that we self-hosted) for our message broker - <a href="https://github.com/nats-io/go-nats-streaming">NATS-Streaming</a>. There was a few major problems with it:
-1. The package was in beta format, and unlike its sibling NATS, seemed like it was being maintained by a small group of individuals who were unrelated to the NATS product (found this out later).</p>
+<p>But with hindsight being <sup>20</sup>&frasl;<sub>20</sub>, we had implemented a fatal flaw. We used a very young technology (that we self-hosted) for our message broker - <a href="https://github.com/nats-io/go-nats-streaming">NATS-Streaming</a>. There was a few major problems with it:</p>
 
 <ol>
+<li><p>The package was in beta format, and unlike its sibling NATS, seemed like it was being maintained by a small group of individuals who were unrelated to the NATS product (found this out later).</p></li>
+
 <li><p>The package makes some odd, immutable decisions about implementation (queues are capped at a maximum of 1,000,000 records), and doesn&rsquo;t quite alert you loudly when it is dropping messages from queues (warning alerts instead of Error alerts or Panics)</p></li>
 
 <li><p>It is missing a fundamental concept of distributed systems - backpressure. NATS-Streaming has no way to account for a slow reader, or an extremely fast publisher. There are hard rate limits you can apply, but at that point you are limiting the throughput and no-longer allowing it to scale, defeating the purpose of the architecture. In my opinion this is a major oversight on the part of the NATS-streaming team, which I hope they remedy in the future.</p></li>
@@ -148,7 +149,7 @@
 				<p>
 					<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-tag meta-icon"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path><line x1="7" y1="7" x2="7" y2="7"></line></svg><span class="tag"><a href="/tags/etl">etl</a></span><span class="tag"><a href="/tags/go">Go</a></span><span class="tag"><a href="/tags/kuberntetes">kuberntetes</a></span><span class="tag"><a href="/tags/python">python</a></span><span class="tag"><a href="/tags/architecture">architecture</a></span><span class="tag"><a href="/tags/data-engineering">data engineering</a></span><span class="tag"><a href="/tags/data-science">data science</a></span><span class="tag"><a href="/tags/analytics">analytics</a></span><span class="tag"><a href="/tags/distributed-systems">distributed systems</a></span>
 				</p>
-				<p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>1157 Words</p>
+				<p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file-text"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>1156 Words</p>
 				<p><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-calendar"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect><line x1="16" y1="2" x2="16" y2="6"></line><line x1="8" y1="2" x2="8" y2="6"></line><line x1="3" y1="10" x2="21" y2="10"></line></svg>2019-04-01 23:25 -0400</p>
 			</footer>
 		</article>
@@ -187,6 +188,17 @@
 
 
 	<script src="/js/main.min.8f39f24808e9d0a9b02da58c2d2838da859dc0b7bdfadbdb1883aae8b6adacfe.js" integrity="sha256-jznySAjp0KmwLaWMLSg42oWdwLe9+tvbGIOq6LatrP4="></script>
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-137781935-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
 
 </body>
 
